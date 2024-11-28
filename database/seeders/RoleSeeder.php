@@ -13,7 +13,10 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        Role::create(['name' => 'User']);
-        Role::create(['name' => 'Admin']);
+        $userRole = Role::firstOrCreate(['name' => 'User']);
+        $adminRole = Role::firstOrCreate(['name' => 'Admin']);
+
+        $userRole->givePermissionTo(['view-own-profile', 'edit-own-profile', 'change-own-password', 'add-to-cart', 'make-purchase']);
+        $adminRole->givePermissionTo(['view-all-users', 'edit-user', 'delete-user', 'promote-to-admin', 'create-product']);
     }
 }

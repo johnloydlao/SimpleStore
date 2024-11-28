@@ -16,11 +16,20 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
-                    @if (auth()->user()->hasRole('Admin'))
+                    @can('view-all-users')
                         <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
                             {{ __('Users') }}
                         </x-nav-link>
-                    @endif
+                    @endcan
+
+                    <x-nav-link :href="route('products.index')" :active="request()->routeIs('products.index')">
+                        {{ __('Products') }}
+                    </x-nav-link>
+                    @can('make-purchase')
+                        <x-nav-link :href="route('cart.view')" :active="request()->routeIs('cart.view')">
+                            {{ __('My Cart') }}
+                        </x-nav-link>
+                    @endcan
                 </div>
             </div>
 
