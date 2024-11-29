@@ -52,9 +52,8 @@ Route::middleware('auth')->group(function () {
 
 
     Route::middleware('role:Admin')->group(function () {
-        Route::get('/users', [UserController::class, 'index'])->name('users.index');
-        Route::post('/users/{id}/promote', [UserController::class, 'promote']);
-        Route::delete('/users/{id}', [UserController::class, 'destroy']);
+        Route::resource('users', UserController::class);
+        Route::post('users/{user}/promote', [UserController::class, 'promote'])->name('users.promote');
 
         Route::prefix('products')->group(function () {
             Route::get('/create', [ProductController::class, 'create'])->name('products.create');

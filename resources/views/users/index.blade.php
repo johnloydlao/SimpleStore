@@ -33,23 +33,43 @@
                                         <td class="px-6 py-3">{{ $user->name }}</td>
                                         <td class="px-6 py-3">{{ $user->email }}</td>
                                         <td class="px-6 py-3">
-                                            <a href="" class="text-blue-500 hover:text-blue-700">
-                                                View
+                                            <a href="{{ route('users.show', $user) }}"
+                                                class="text-blue-500 hover:text-blue-700">
+                                                {{ __('View') }}
                                             </a>
-                                            <x-edit-button>
+
+                                            <a href="{{ route('users.edit', $user) }}"
+                                                class="ml-4 text-blue-500 hover:text-blue-700">
                                                 {{ __('Edit') }}
-                                            </x-edit-button>
-                                            <a href="" class="text-blue-500 hover:text-blue-700">
-                                                Edit
                                             </a>
-                                            <a href="" class="text-blue-500 hover:text-blue-700">
-                                                Delete
-                                            </a>
+
+                                            <form action="{{ route('users.destroy', $user) }}" method="POST"
+                                                class="inline-block">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" onclick="return confirm('Are you sure?')"
+                                                    class="ml-4 text-red-500 hover:text-red-700">
+                                                    {{ __('Delete') }}
+                                                </button>
+                                            </form>
+
+                                            <form action="{{ route('users.promote', $user) }}" method="POST"
+                                                class="inline-block">
+                                                @csrf
+                                                <button type="submit" class="ml-4 text-green-500 hover:text-green-700">
+                                                    {{ __('Promote to Admin') }}
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
+                        @if (session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
