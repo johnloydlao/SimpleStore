@@ -60,9 +60,7 @@ class UserController extends Controller
 
     public function promote(User $user)
     {
-        if (!$user->hasRole('Admin')) {
-            $user->assignRole('Admin');
-        }
+        $user->syncRoles('Admin');
 
         return back()->with('success', 'User has been promoted to Admin.');
     }

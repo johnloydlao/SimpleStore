@@ -9,7 +9,7 @@ class StripeService
 {
     public function createCheckoutSession($cart)
     {
-        Stripe::setApiKey(env('STRIPE_SECRET'));
+        Stripe::setApiKey(config('services.stripe.secret'));
 
         $lineItems = $this->prepareLineItems($cart);
 
